@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "./App.module.scss";
 import { Button } from "./Components/Button";
+import dolorIcon from "./assets/dollor.svg";
+import userIcon from "./assets/user.svg"
 
 const initialButtonData = [
   { id: "1", value: 5, isSelected: false },
@@ -11,12 +13,12 @@ const initialButtonData = [
 ];
 
 const formInitialState = {
-  bill: 0,
-  totalPeople: 0,
+  bill: "",
+  totalPeople: "",
   percentage: 0,
   tipPerPerson: 0,
   amountPerPerson: 0,
-  customPercentage: 0,
+  customPercentage: "",
 };
 
 function App() {
@@ -125,9 +127,13 @@ function App() {
           <div className={styles.leftSubContainer}>
             <div className={styles.leftFirstSubContainer}>
               <label className={styles.leftSubContainerBill}>Bill</label>
+              <span>
+                <img src={dolorIcon} alt="dolor sign" width={9} />
+              </span>
               <input
                 type="text"
                 name="totalBill"
+                placeholder="0"
                 className={styles.totalBillInput}
                 value={formState.bill}
                 onChange={onChangeHandler}
@@ -156,6 +162,7 @@ function App() {
                     name="CustomInput"
                     className={styles.customInput}
                     value={formState.customPercentage}
+                    placeholder="0"
                     onChange={(e) =>
                       setPercentageAndCalcTotal(Number(e.target.value), true)
                     }
@@ -167,9 +174,13 @@ function App() {
               <label className={styles.leftSubContainerTotalPeople}>
                 Number of People
               </label>
+              <span>
+                <img src={userIcon} alt="user sign" width={16} />
+              </span>
               <input
                 type="text"
                 name="totalPeople"
+                placeholder="0"
                 className={styles.totalPeopleInput}
                 value={formState.totalPeople}
                 onChange={onChangeHandler}
