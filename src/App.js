@@ -31,8 +31,7 @@ function App() {
   });
 
   const onChangeHandler = (e) => {
-    const inputValue = e.target.value;
-    const numericValue = Number(inputValue.replace(/\D/g, ""));
+    const numericValue = e.target.value;
     const issuedBill =
       e.target.name === "totalBill" ? e.target.value : formState.bill;
     const amount = (formState.percentage / 100) * issuedBill;
@@ -185,7 +184,7 @@ function App() {
                 <img src={dolorIcon} alt="dolor sign" width={9} />
               </span>
               <input
-                type="text"
+                type="number"
                 name="totalBill"
                 placeholder="0"
                 className={styles.totalBillInput}
@@ -212,13 +211,13 @@ function App() {
                   />
                 ) : (
                   <input
-                    type="text"
+                    type="number"
                     name="CustomInput"
                     className={styles.customInput}
                     value={formState.customPercentage}
                     placeholder="0"
                     onChange={(e) =>
-                      setPercentageAndCalcTotal(Number(e.target.value), true)
+                      setPercentageAndCalcTotal(e.target.value, true)
                     }
                   />
                 )}
@@ -233,7 +232,7 @@ function App() {
                 <img src={userIcon} alt="user sign" width={16} />
               </span>
               <input
-                type="text"
+                type="number"
                 name="totalPeople"
                 placeholder="0"
                 className={styles.totalPeopleInput}

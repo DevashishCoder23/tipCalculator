@@ -1,9 +1,16 @@
+$large-screen: 1200px;
+
 .app {
   background-color: rgb(197, 228, 231);
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
   .mainContainer {
     width: 60%;
@@ -11,7 +18,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    @media screen and (max-width: 1200px) {
+      width: 90%;
+    }
     header {
       height: 100px;
       display: flex;
@@ -32,7 +41,8 @@
 
     main {
       background-color: white;
-      height: 430px;
+      height: 80%;
+      min-height: 430px;
       border-radius: 8px;
       display: flex;
       justify-content: space-evenly;
@@ -40,14 +50,13 @@
 
       .leftSubContainer {
         height: 320px;
-        // border: 1px solid red;
         border-radius: 6px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
         .customInput {
-          width: 82px;
+          width: 80px;
           height: 40px;
           border-radius: 8px;
           border-style: none;
@@ -55,6 +64,16 @@
           border: 1px solid rgb(38, 194, 173);
           text-align: end;
           padding-right: 10px;
+          font-weight: bold;
+          @media screen and (max-width: 1200px) {
+            width: 50px;
+            font-size: 10px;
+          }
+          &:focus {
+            border: 2px solid rgb(38, 194, 173);
+            border-radius: 8px;
+            outline: none;
+          }
         }
 
         .leftFirstSubContainer {
@@ -92,6 +111,12 @@
             font-size: 16px;
             background-color: rgb(243, 248, 251);
             border: 1px solid rgb(201, 216, 225);
+
+            &:focus {
+              border: 2px solid rgb(38, 194, 173);
+              border-radius: 8px;
+              outline: none;
+            }
           }
         }
 
@@ -147,6 +172,11 @@
             font-size: 16px;
             background-color: rgb(243, 248, 251);
             border: 1px solid rgb(201, 216, 225);
+            &:focus {
+              border: 2px solid rgb(38, 194, 173);
+              border-radius: 8px;
+              outline: none;
+            }
           }
         }
       }
@@ -160,16 +190,21 @@
         justify-content: center;
         align-items: center;
 
+        @media screen and (max-width: $large-screen) {
+          width: 250px;
+        }
+
         .rightSubSubContainer {
-          // background-color: red;
           width: 230px;
           height: 230px;
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          @media screen and (max-width: $large-screen) {
+            width: 200px;
+          }
 
           .tipAmount {
-            // background-color: gray;
             height: 50px;
             display: flex;
             .tipAmountFirstContainer {
@@ -177,7 +212,6 @@
               flex-direction: column;
               justify-content: space-evenly;
               width: 60%;
-              // background-color: greenyellow;
               .first {
                 color: white;
               }
@@ -198,14 +232,12 @@
           }
 
           .totalAmount {
-            // background-color: aqua;
             height: 50px;
             display: flex;
             .totalAmountFirstContainer {
               display: flex;
               flex-direction: column;
               justify-content: space-evenly;
-              // background-color: greenyellow;
               width: 60%;
               .first {
                 color: white;
