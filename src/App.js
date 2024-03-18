@@ -2,61 +2,117 @@ import { useState } from "react";
 import styles from "./App.module.scss";
 import { Button } from "./Components/Button";
 
-const buttonData = [
-  { id: "1", value: 5 },
-  { id: "2", value: 10 },
-  { id: "3", value: 15 },
-  { id: "4", value: 25 },
-  { id: "5", value: 50 },
-];  
+const initialButtonData = [
+  { id: "1", value: 5, isSelected: false },
+  { id: "2", value: 10, isSelected: false },
+  { id: "3", value: 15, isSelected: false },
+  { id: "4", value: 25, isSelected: false },
+  { id: "5", value: 50, isSelected: false },
+];
+
+const formInitialState = {
+  bill: 0,
+  totalPeople: 0,
+  percentage: 0,
+  tipPerPerson: 0,
+  amountPerPerson: 0,
+  customPercentage: 0,
+};
 
 function App() {
-  const [bill, setbill] = useState();
-  const [totalPeople, setTotalPeople] = useState();
-  const [percentage, setPercentage] = useState();
-  const [tipPerPerson, setTipPerPerson] = useState();
-  const [amountPerPerson, setAmountPerPerson] = useState();
+  const [formState, setFormState] = useState(formInitialState);
   const [isInputVisible, setIsInputVisible] = useState(false);
+  const [buttonData, setButtonData] = useState(initialButtonData);
 
   const onChangeHandler = (e) => {
     const inputValue = e.target.value;
     const numericValue = Number(inputValue.replace(/\D/g, ""));
-    const amount = (percentage / 100) * bill;
+    const amount = (formState.percentage / 100) * formState.bill;
 
     if (e.target.name === "totalBill") {
-      setbill(numericValue);
-      if (amount && numericValue && totalPeople) {
-        calculateTotal(amount, numericValue, totalPeople);
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          bill: numericValue,
+        };
+      });
+      if (amount && numericValue && formState.totalPeople) {
+        calculateTotal(amount, numericValue, formState.totalPeople);
       }
     } else if (e.target.name === "totalPeople") {
-      setTotalPeople(numericValue);
-      if (amount && bill && numericValue) {
-        calculateTotal(amount, bill, numericValue);
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          totalPeople: numericValue,
+        };
+      });
+      if (amount && formState.bill && numericValue) {
+        calculateTotal(amount, formState.bill, numericValue);
       }
     }
   };
 
-  const setPercentageAndCalcTotal = (value) => {
-    setPercentage(value);
-    const amount = (value / 100) * bill;
-    if (amount && bill && totalPeople) {
-      calculateTotal(amount, bill, totalPeople);
+  const setPercentageAndCalcTotal = (value, isCustom) => {
+    console.log("lets check value here ==>", value);
+    if (isCustom) {
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          customPercentage: value,
+          percentage: value,
+        };
+      });
+    } else {
+      setFormState((prevState) => {
+        return {
+          ...prevState,
+          percentage: value,
+        };
+      });
+    }
+    const amount = (value / 100) * formState.bill;
+    if (amount && formState.bill && formState.totalPeople) {
+      calculateTotal(amount, formState.bill, formState.totalPeople);
     }
   };
 
-  const onTipClickHandler = (value) => {
-    console.log("lets check value ==>", value);
+  const onTipClickHandler = (value, id) => {
     if (value !== "Custom") {
-      setPercentageAndCalcTotal(value);
+      setButtonData((prevState) =>
+        prevState.map((data) => {
+          if (data.id === id) {
+            return {
+              ...data,
+              isSelected: true,
+            };
+          } else {
+            return {
+              ...data,
+              isSelected: false,
+            };
+          }
+        })
+      );
+      setPercentageAndCalcTotal(value, false);
     } else {
       setIsInputVisible(true);
     }
   };
 
   const calculateTotal = (totalTipAmount, bill, totalPeople) => {
-    setTipPerPerson((totalTipAmount / totalPeople).toFixed(2));
+    setFormState((prevState) => {
+      return {
+        ...prevState,
+        tipPerPerson: (totalTipAmount / totalPeople).toFixed(2),
+      };
+    });
     const totalAmountToPay = totalTipAmount + Number(bill);
-    setAmountPerPerson((totalAmountToPay / totalPeople).toFixed(2));
+    setFormState((prevState) => {
+      return {
+        ...prevState,
+        amountPerPerson: (totalAmountToPay / totalPeople).toFixed(2),
+      };
+    });
   };
 
   return (
@@ -73,7 +129,7 @@ function App() {
                 type="text"
                 name="totalBill"
                 className={styles.totalBillInput}
-                value={bill}
+                value={formState.bill}
                 onChange={onChangeHandler}
               />
             </div>
@@ -84,6 +140,8 @@ function App() {
                   <Button
                     value={data.value}
                     key={data.id}
+                    isSelected={data.isSelected}
+                    id={data.id}
                     onTipClickHandler={onTipClickHandler}
                   />
                 ))}
@@ -97,8 +155,9 @@ function App() {
                     type="text"
                     name="CustomInput"
                     className={styles.customInput}
+                    value={formState.customPercentage}
                     onChange={(e) =>
-                      setPercentageAndCalcTotal(Number(e.target.value))
+                      setPercentageAndCalcTotal(Number(e.target.value), true)
                     }
                   />
                 )}
@@ -112,7 +171,7 @@ function App() {
                 type="text"
                 name="totalPeople"
                 className={styles.totalPeopleInput}
-                value={totalPeople}
+                value={formState.totalPeople}
                 onChange={onChangeHandler}
               />
             </div>
@@ -126,7 +185,7 @@ function App() {
                   <span className={styles.second}>/Person</span>
                 </div>
                 <div className={styles.tipAmountSecondContainer}>
-                  ${tipPerPerson ? tipPerPerson : "0.00"}
+                  ${formState.tipPerPerson ? formState.tipPerPerson : "0.00"}
                 </div>
               </div>
               <div className={styles.totalAmount}>
@@ -135,10 +194,21 @@ function App() {
                   <span className={styles.second}>/Person</span>
                 </div>
                 <div className={styles.totalAmountSecondContainer}>
-                  ${amountPerPerson ? amountPerPerson : "0.00"}
+                  $
+                  {formState.amountPerPerson
+                    ? formState.amountPerPerson
+                    : "0.00"}
                 </div>
               </div>
-              <button className={styles.resetButton}>RESET</button>
+              <button
+                onClick={() => {
+                  setFormState(formInitialState);
+                  setButtonData(initialButtonData);
+                  setIsInputVisible(false);
+                }}
+              >
+                RESET
+              </button>
             </div>
           </div>
         </main>
