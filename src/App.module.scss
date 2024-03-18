@@ -64,7 +64,16 @@
           justify-content: space-between;
           height: 67px;
 
-          span{
+          h6 {
+            position: absolute;
+            margin: 0;
+            right: 0;
+            top: 7px;
+            color: red;
+            font-size: 13px;
+          }
+
+          span {
             position: absolute;
             top: 40px;
             left: 8px;
@@ -110,7 +119,16 @@
           height: 67px;
           position: relative;
 
-          span{
+          h6 {
+            position: absolute;
+            margin: 0;
+            right: 0;
+            top: 7px;
+            color: red;
+            font-size: 13px;
+          }
+
+          span {
             position: absolute;
             top: 40px;
             left: 8px;

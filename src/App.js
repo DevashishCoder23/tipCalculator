@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./App.module.scss";
 import { Button } from "./Components/Button";
 import dolorIcon from "./assets/dollor.svg";
-import userIcon from "./assets/user.svg"
+import userIcon from "./assets/user.svg";
 
 const initialButtonData = [
   { id: "1", value: 5, isSelected: false },
@@ -25,13 +25,34 @@ function App() {
   const [formState, setFormState] = useState(formInitialState);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [buttonData, setButtonData] = useState(initialButtonData);
+  const [errorState, setErrorState] = useState({
+    billAmount: false,
+    noOfPeople: false,
+  });
 
   const onChangeHandler = (e) => {
     const inputValue = e.target.value;
     const numericValue = Number(inputValue.replace(/\D/g, ""));
-    const amount = (formState.percentage / 100) * formState.bill;
+    const issuedBill =
+      e.target.name === "totalBill" ? e.target.value : formState.bill;
+    const amount = (formState.percentage / 100) * issuedBill;
 
     if (e.target.name === "totalBill") {
+      if (numericValue) {
+        setErrorState((prevState) => {
+          return {
+            ...prevState,
+            billAmount: false,
+          };
+        });
+      } else {
+        setErrorState((prevState) => {
+          return {
+            ...prevState,
+            billAmount: true,
+          };
+        });
+      }
       setFormState((prevState) => {
         return {
           ...prevState,
@@ -42,6 +63,21 @@ function App() {
         calculateTotal(amount, numericValue, formState.totalPeople);
       }
     } else if (e.target.name === "totalPeople") {
+      if (numericValue) {
+        setErrorState((prevState) => {
+          return {
+            ...prevState,
+            noOfPeople: false,
+          };
+        });
+      } else {
+        setErrorState((prevState) => {
+          return {
+            ...prevState,
+            noOfPeople: true,
+          };
+        });
+      }
       setFormState((prevState) => {
         return {
           ...prevState,
@@ -55,7 +91,24 @@ function App() {
   };
 
   const setPercentageAndCalcTotal = (value, isCustom) => {
-    console.log("lets check value here ==>", value);
+    if (!formState.bill) {
+      setErrorState((prevState) => {
+        return {
+          ...prevState,
+          billAmount: true,
+        };
+      });
+    }
+
+    if (!formState.totalPeople) {
+      setErrorState((prevState) => {
+        return {
+          ...prevState,
+          noOfPeople: true,
+        };
+      });
+    }
+
     if (isCustom) {
       setFormState((prevState) => {
         return {
@@ -127,6 +180,7 @@ function App() {
           <div className={styles.leftSubContainer}>
             <div className={styles.leftFirstSubContainer}>
               <label className={styles.leftSubContainerBill}>Bill</label>
+              {errorState.billAmount && <h6>Can't be zero</h6>}
               <span>
                 <img src={dolorIcon} alt="dolor sign" width={9} />
               </span>
@@ -174,6 +228,7 @@ function App() {
               <label className={styles.leftSubContainerTotalPeople}>
                 Number of People
               </label>
+              {errorState.noOfPeople && <h6>Can't be zero</h6>}
               <span>
                 <img src={userIcon} alt="user sign" width={16} />
               </span>
