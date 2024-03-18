@@ -1,0 +1,208 @@
+.app {
+  background-color: rgb(197, 228, 231);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mainContainer {
+    width: 60%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    header {
+      height: 100px;
+      display: flex;
+      justify-content: center;
+
+      h2 {
+        color: aliceblue;
+        text-align: center;
+        word-break: break-all;
+        letter-spacing: 2px;
+        margin: 0;
+        width: 75px;
+        padding: 10px;
+        color: rgb(64, 102, 103);
+      }
+    }
+
+    main {
+      background-color: white;
+      height: 430px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .leftSubContainer {
+        height: 320px;
+        // border: 1px solid red;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .customInput {
+          width: 82px;
+          height: 40px;
+          border-radius: 8px;
+          border-style: none;
+          font-size: 17px;
+          border: 1px solid rgb(38, 194, 173);
+          text-align: end;
+          padding-right: 10px;
+        }
+
+        .leftFirstSubContainer {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 67px;
+
+          .leftSubContainerBill {
+            font-weight: bold;
+            color: rgb(125, 136, 136);
+          }
+
+          .totalBillInput {
+            height: 30px;
+            text-align: end;
+            padding-right: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: rgb(243, 248, 251);
+            border: 1px solid rgb(201, 216, 225);
+          }
+        }
+
+        .leftSecondSubContainer {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          h4 {
+            color: rgb(125, 136, 136);
+          }
+          .leftSubContainerTip {
+            height: 105px;
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+          }
+        }
+
+        .leftThirdSubContainer {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 67px;
+
+          .leftSubContainerTotalPeople {
+            font-weight: bold;
+            color: rgb(125, 136, 136);
+          }
+
+          .totalPeopleInput {
+            height: 30px;
+            text-align: end;
+            padding-right: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: rgb(243, 248, 251);
+            border: 1px solid rgb(201, 216, 225);
+          }
+        }
+      }
+
+      .rightSubContainer {
+        width: 313px;
+        height: 320px;
+        background-color: rgb(0, 71, 75);
+        border-radius: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .rightSubSubContainer {
+          // background-color: red;
+          width: 230px;
+          height: 230px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .tipAmount {
+            // background-color: gray;
+            height: 50px;
+            display: flex;
+            .tipAmountFirstContainer {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-evenly;
+              width: 60%;
+              // background-color: greenyellow;
+              .first {
+                color: white;
+              }
+              .second {
+                color: rgb(94, 150, 155);
+                font-size: 12px;
+              }
+            }
+            .tipAmountSecondContainer {
+              width: 40%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 22px;
+              font-weight: bold;
+              color: rgb(33, 195, 172);
+            }
+          }
+
+          .totalAmount {
+            // background-color: aqua;
+            height: 50px;
+            display: flex;
+            .totalAmountFirstContainer {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-evenly;
+              // background-color: greenyellow;
+              width: 60%;
+              .first {
+                color: white;
+              }
+              .second {
+                color: rgb(94, 150, 155);
+                font-size: 12px;
+              }
+            }
+            .totalAmountSecondContainer {
+              width: 40%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 22px;
+              font-weight: bold;
+              color: rgb(33, 195, 172);
+            }
+          }
+          button {
+            background-color: rgb(159, 232, 223);
+            border-style: none;
+            height: 35px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            color: rgb(0, 72, 73);
+          }
+        }
+      }
+    }
+  }
+}

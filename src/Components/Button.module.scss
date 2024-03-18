@@ -1,0 +1,23 @@
+.button{
+    background-color: rgb(0, 71, 75);
+    width: 96px;
+    height: 45px;
+    border-radius: 8px;
+    border-style: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 17px;
+    color: white;
+}
+
+.selectedButton{
+    background-color: rgb(159, 232, 223);
+    width: 96px;
+    height: 45px;
+    border-radius: 8px;
+    border-style: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 17px;
+    color: rgb(0, 72, 73);
+}
